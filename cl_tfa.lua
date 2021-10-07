@@ -26,10 +26,16 @@ for k, v in pairs(convars) do
 end
 
 hook.Add("DarkRPFinishedLoading", "CPG_CLTFA", function()
+    -- Anti chat-spam
+    hook.Remove("HUDPaint", "TFA_DISPLAY_CHANGELOG")
+    hook.Remove("HUDPaint", "tfa_drawdebughud")
 	hook.Remove("HUDPaint", "TFA_CheckEnv")
+    -- Other
+    hook.Remove("PopulateMenuBar", "NPCOptions_MenuBar_TFA")
     hook.Remove("HUDPaint", "tfaDrawHitmarker")
     hook.Remove("PopulateToolMenu", "tfaAddOption")
 	hook.Remove("PopulateToolMenu", "TFA_AddKeyBinds")
+    -- Attachments
 	hook.Remove("NotifyShouldTransmit", "TFA_AttachmentsRequest")
 	hook.Remove("NetworkEntityCreated", "TFA_AttachmentsRequest")
 	hook.Remove("OnEntityCreated", "TFA_AttachmentsRequest")
