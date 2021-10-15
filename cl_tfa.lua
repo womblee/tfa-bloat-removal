@@ -43,5 +43,13 @@ hook.Add("DarkRPFinishedLoading", "CPG_CLTFA", function()
 	hook.Remove("ContextMenuOpen", "TFAContextBlock")
 end)
 
+hook.Add('InitPostEntity', 'CPG_TFAPData', function()
+    local pdatavar = "tfa_base_version_" .. util.CRC(game.GetIPAddress())
+
+    if LocalPlayer():GetPData(pdatavar, nil) ~= nil then
+        LocalPlayer():RemovePData(pdatavar)
+    end
+end)
+
 net.Receive("tfaHitmarker", function() end)
 net.Receive("tfaHitmarker3D", function() end)
