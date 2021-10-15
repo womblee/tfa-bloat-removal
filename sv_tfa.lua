@@ -11,7 +11,8 @@ hook.Add("DarkRPFinishedLoading", "CPG_TFA", function()
     hook.Remove('NotifyShouldTransmit', 'TFA_AttachmentsRequest')
     hook.Remove('NetworkEntityCreated', 'TFA_AttachmentsRequest')
     hook.Remove('OnEntityCreated', 'TFA_AttachmentsRequest')
-
+    
+    -- NZombies
     hook.Remove('InitPostEntity', 'TFA_NZPatch')
     hook.Remove('TFA_AnimationRate', 'NZBase')
     hook.Remove('TFA_Deploy', 'NZBase')
