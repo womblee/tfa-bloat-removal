@@ -19,14 +19,6 @@ hook.Add("DarkRPFinishedLoading", "CPG_TFA", function()
     hook.Remove('InitPostEntity', 'TFA_NZPatch')
 end)
 
-hook.Add('InitPostEntity', 'CPG_TFAPData', function(ply)
-    local pdatavar = "tfa_base_version_" .. util.CRC(game.GetIPAddress())
-
-    if ply:GetPData(pdatavar, nil) ~= nil then
-        ply:RemovePData(pdatavar)
-    end
-end)
-
 net.Receive("TFA_Attachment_Reload", function() end)
 net.Receive("TFA_Attachment_SetStatus", function() end)
 net.Receive("TFA_Attachment_Request", function() end)
