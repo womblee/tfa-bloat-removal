@@ -1,4 +1,5 @@
 local convars = {
+    -- Interface
     ["cl_tfa_hud_enabled"] = 0,
     ["cl_tfa_hud_crosshair_color_r"] = 255,
     ["cl_tfa_hud_crosshair_color_g"] = 255,
@@ -14,6 +15,15 @@ local convars = {
     ["cl_tfa_hud_crosshair_color_team"] = 0,
     ["cl_tfa_hud_crosshair_enable_custom"] = 1,
     ["cl_tfa_hud_crosshair_outline_enabled"] = 1,
+    
+    -- Optimizations
+    ["cl_tfa_fx_ejectionsmoke"] = 0,
+    ["cl_tfa_fx_ejectionlife"] = 6,
+    ["cl_tfa_fx_ads_dof"] = 0,
+    ["cl_tfa_fx_gasblur"] = 0,
+	
+    -- Just in case
+    ["cl_tfa_viewmodel_multiplier_fov"] = 1,
 }
 
 -- Let's block the convar change
@@ -26,7 +36,7 @@ for k, v in pairs(convars) do
 end
 
 hook.Add("DarkRPFinishedLoading", "CPG_CLTFA", function()
-    -- Anti chat-spam
+    -- Useless
     hook.Remove("HUDPaint", "TFA_DISPLAY_CHANGELOG")
     hook.Remove("HUDPaint", "tfa_drawdebughud")
     hook.Remove("HUDPaint", "TFA_CheckEnv")
