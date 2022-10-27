@@ -16,7 +16,6 @@ if SERVER then
 
     -- Attachments
     if block_attachments then
-        -- Hooks
         hook.Remove('Initialize', 'TFAUpdateAttachmentsIPE')
         hook.Remove('InitPostEntity', 'TFAUpdateAttachmentsIPE')
         hook.Remove('NotifyShouldTransmit', 'TFA_AttachmentsRequest')
@@ -80,11 +79,12 @@ if CLIENT then
         ["cl_tfa_hud_crosshair_outline_enabled"] = 1,
         
         -- Optimizations
+        ["cl_tfa_fx_muzzleflashsmoke"] = 0,
         ["cl_tfa_fx_ejectionsmoke"] = 0,
         ["cl_tfa_fx_ejectionlife"] = 6,
         ["cl_tfa_fx_ads_dof"] = 0,
         ["cl_tfa_fx_gasblur"] = 0,
-        
+
         -- Just in case
         ["cl_tfa_viewmodel_multiplier_fov"] = 1,
     }
