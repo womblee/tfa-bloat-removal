@@ -2,30 +2,27 @@
 local block_attachments = false
 
 if SERVER then
-    hook.Add("DarkRPFinishedLoading", "CPG_TFA", function()
-        -- Spam
-        hook.Remove('InitPostEntity', 'TFA_CheckEnv')
-        
-        -- Useless
-        hook.Remove('PlayerSpawnNPC', 'TFACheckNPCWeapon')
+    -- Spam
+    hook.Remove('InitPostEntity', 'TFA_CheckEnv')
     
-        -- NZombies
-        hook.Remove('InitPostEntity', 'TFA_NZPatch')
-        hook.Remove('TFA_AnimationRate', 'NZBase')
-        hook.Remove('TFA_Deploy', 'NZBase')
-        hook.Remove('InitPostEntity', 'TFA_NZPatch')
+    -- Useless
+    hook.Remove('PlayerSpawnNPC', 'TFACheckNPCWeapon')
+    
+    -- NZombies
+    hook.Remove('InitPostEntity', 'TFA_NZPatch')
+    hook.Remove('TFA_AnimationRate', 'NZBase')
+    hook.Remove('TFA_Deploy', 'NZBase')
+    hook.Remove('InitPostEntity', 'TFA_NZPatch')
 
-        -- Attachments
-        if block_attachments then
-            hook.Remove('Initialize', 'TFAUpdateAttachmentsIPE')
-            hook.Remove('InitPostEntity', 'TFAUpdateAttachmentsIPE')
-            hook.Remove('NotifyShouldTransmit', 'TFA_AttachmentsRequest')
-            hook.Remove('NetworkEntityCreated', 'TFA_AttachmentsRequest')
-            hook.Remove('OnEntityCreated', 'TFA_AttachmentsRequest')
-        end
-    end)
-    
+    -- Attachments
     if block_attachments then
+        -- Hooks
+        hook.Remove('Initialize', 'TFAUpdateAttachmentsIPE')
+        hook.Remove('InitPostEntity', 'TFAUpdateAttachmentsIPE')
+        hook.Remove('NotifyShouldTransmit', 'TFA_AttachmentsRequest')
+        hook.Remove('NetworkEntityCreated', 'TFA_AttachmentsRequest')
+        hook.Remove('OnEntityCreated', 'TFA_AttachmentsRequest')
+
         -- Convar
         GetConVar("sv_tfa_attachments_enabled"):SetInt(0)
 
@@ -34,6 +31,9 @@ if SERVER then
         net.Receive("TFA_Attachment_SetStatus", function() end)
         net.Receive("TFA_Attachment_Request", function() end)
         net.Receive("TFA_Attachment_Set", function() end)
+    else
+        -- Restore
+        GetConVar("sv_tfa_attachments_enabled"):SetInt(1)
     end
 
     -- Well, too bad
@@ -57,7 +57,9 @@ if SERVER then
     for k, v in pairs(convars) do
         GetConVar(v):SetInt(0)
     end
-else
+end
+
+if CLIENT then
     local convars =
     {
         -- Interface
@@ -96,28 +98,26 @@ else
         end)
     end
     
-    -- Clientside
-    hook.Add("DarkRPFinishedLoading", "CPG_CLTFA", function()
-        -- Useless
-        hook.Remove("HUDPaint", "TFA_DISPLAY_CHANGELOG")
-        hook.Remove("HUDPaint", "tfa_drawdebughud")
-        hook.Remove("HUDPaint", "TFA_CheckEnv")
-            
-        -- Other
-        hook.Remove("PopulateMenuBar", "NPCOptions_MenuBar_TFA")
-        hook.Remove("HUDPaint", "tfaDrawHitmarker")
-        hook.Remove("PopulateToolMenu", "tfaAddOption")
-        hook.Remove("PopulateToolMenu", "TFA_AddKeyBinds")
-            
-        -- Attachments
-        if block_attachments then
-            hook.Remove("NotifyShouldTransmit", "TFA_AttachmentsRequest")
-            hook.Remove("NetworkEntityCreated", "TFA_AttachmentsRequest")
-            hook.Remove("OnEntityCreated", "TFA_AttachmentsRequest")
-            hook.Remove("Think", "TFAInspectionMenu")
-            hook.Remove("ContextMenuOpen", "TFAContextBlock")
-        end
-    end)
+    -- Useless
+    hook.Remove("HUDPaint", "TFA_DISPLAY_CHANGELOG")
+    hook.Remove("HUDPaint", "tfa_drawdebughud")
+    hook.Remove("HUDPaint", "TFA_CheckEnv")
+    
+    -- Other
+    hook.Remove("PopulateMenuBar", "NPCOptions_MenuBar_TFA")
+    hook.Remove("HUDPaint", "tfaDrawHitmarker")
+    hook.Remove("PopulateToolMenu", "tfaAddOption")
+    hook.Remove("PopulateToolMenu", "TFA_AddKeyBinds")
+        
+    -- Attachments
+    if block_attachments then
+        hook.Remove("NotifyShouldTransmit", "TFA_AttachmentsRequest")
+        hook.Remove("NetworkEntityCreated", "TFA_AttachmentsRequest")
+        hook.Remove("OnEntityCreated", "TFA_AttachmentsRequest")
+        hook.Remove("Think", "TFAInspectionMenu")
+        hook.Remove("ContextMenuOpen", "TFAContextBlock")
+    end
+
     
     -- Eats space
     hook.Add('InitPostEntity', 'CPG_TFAPData', function()
